@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/assets/logo.png" width="300" />
+  <img src="/assets/logo.png" width="500" />
   <p style="margin-top: 25px;">Plugin to inject CDN script blocks to DOM.</p>
 
 [![Build Status](https://travis-ci.com/drolsen/webpack-svg-spritely.svg?branch=master)](https://travis-ci.com/drolsen/webpack-svg-spritely)
