@@ -1,6 +1,6 @@
 <div align="center">
   <img src="/assets/logo.png" width="500" />
-  <p style="margin-top: 25px;">Plugin to inject CDN script blocks to DOM.</p>
+  <p style="margin-top: 25px;">Plugin to inject CDN hosted assets to DOM.</p>
 
 [![Build Status](https://travis-ci.com/drolsen/webpack-svg-spritely.svg?branch=master)](https://travis-ci.com/drolsen/webpack-svg-spritely)
 [![dependencies Status](https://david-dm.org/drolsen/webpack-svg-spritely/status.svg)](https://david-dm.org/drolsen/webpack-svg-spritely)
@@ -8,11 +8,11 @@
 </div>
 
 ### How it works
-Webpack CDN Inject allows developers a way to define CDN hosted assets that will be injected into their HTML document. CDN hosted assets helps reduce your project's build times and size and in some cases speed up load times.
+Webpack CDN Inject allows developers a way to define CDN hosted assets that will be added to their HTML document by means of script or link tags. CDN hosted assets helps reduce your project's build times and size and in some cases speed up load times.
 
 Webpack CDN Inject accepts both JS (script tag) and CSS (link tag) configurations.
 
-JS configurations are injected into bottom of your document's body, while CSS configurations are  injected into the bottom of the head of your document (below any existing tags).
+JS configurations are injected into bottom of your document's body, while CSS configurations are injected into the bottom of the head of your document (below any existing tags).
 
 ---
 ### Install
