@@ -1,0 +1,25 @@
+{
+  "name": "webpack-cdn-inject",
+  "version": "1.1.3",
+  "description": "Plugin to inject CDN script blocks to DOM",
+  "repository": "drolsen/webpack-cdn-inject",
+  "bugs": {
+    "url": "https://github.com/drolsen/webpack-cdn-inject/issues"
+  },
+  "author": "Devin R. Olsen <devin@devinrolsen.com> (http://devinrolsen.com)",
+  "license": "MIT",
+  "scripts": {
+    "test": "webpack --config ./test/basic.test.config.js --mode production"
+  },
+  "engines": {
+    "node": ">=10.15.1"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "file-loader": "^4.2.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^4.0.0-beta.5"
+  }
+}
