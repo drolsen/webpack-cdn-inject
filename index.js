@@ -1,36 +1,49 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const makeLinkTag = (url) => `<link href="${url}" rel="stylesheet" />`;
+const makeScriptTag = (url) => `<script src="${url}"></script>`;
 
 class WebpackCDNInject {
-  constructor(config) {
-    this.head = '';
-    this.body = '';
-    this.config = config;
-
-    Object.keys(this.config).map((i) => {
-      if (this.config[i].indexOf('css') !== -1) {
-        this.head += `<link href="${this.config[i]}" rel="stylesheet" />`;
-      } else {
-        this.body += `\n    <script src="${this.config[i]}"></script>`;
-      }
-    });
+  constructor(options) {
+    this.options = (options) ? options : {
+      head: [],
+      body: []
+    };
   }
 
   apply(compiler) {
-    // 1) determin if endpoint is CSS or JS (aka before </head> or </body>)
-    // 2) scrub found modules against unpkg CDN
-    // 3) if found, remove module from bundle and inject script blocks into HtmlWebpackPlugin
-
-    // HtmlWebpackPlugin injection
-    compiler.hooks.compilation.tap({
+    compiler.hooks.emit.tap({
       name: 'WebpackCDNInject'
     }, (compilation) => {
-      HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tap(
-        'StatsCompile',
-        (data) => {
-          data.html = data.html.replace(/<link(.*?)<\/head>/, `${this.head}<link$1</head>`);
-          data.html = data.html.replace(/<script(.*?)<\/body>/,`${this.body}\n    <script$1\n  </body>`);
+      Object.keys(compilation.assets).map((i) => {
+        if (i.indexOf('.html') !== -1) {
+          let data = compilation.assets[i].source().toString();
+          if (this.options.head) {
+            if (this.options.head.length) {
+              data = data.replace(
+                /<head>([\s\S]*?)<\/head>/,
+                `<head>$1${
+                  Object.keys(this.options.head).map((i) => 
+                    (this.options.head[i].indexOf('.css') !== -1)
+                      ? `  ${makeLinkTag(this.options.head[i])}`
+                      : `    ${makeScriptTag(this.options.head[i])}`
+                    ).join('\n')
+                }\n  </head>`);
+            }
+          }
+
+          if (this.options.body) {
+            if (this.options.body.length) {
+              data = data.replace(
+                /<script([\s\S]*?)<\/body>/,
+                `\n    ${Object.keys(this.options.body).map((i) => 
+                  (this.options.body[i].indexOf('.js') !== -1)
+                    ? makeScriptTag(this.options.body[i])
+                    : makeLinkTag(this.options.body[i])).join('\n    ')
+                }\n    <script$1\n  </body>`);
+            }
+          }
+          compilation.assets[i].source = () => Buffer.from(data, 'utf8');        
         }
-      )
+      }); 
     });
   }
 }

@@ -9,17 +9,21 @@
   "author": "Devin R. Olsen <devin@devinrolsen.com> (http://devinrolsen.com)",
   "license": "MIT",
   "scripts": {
-    "test": "webpack --config ./test/basic.test.config.js --mode production"
+    "test": "npm run body-test && npm run head-test && npm run copy-test",
+    "body-test": "webpack --config ./test/body.test.config.js --mode production",
+    "head-test": "webpack --config ./test/head.test.config.js --mode production",
+    "copy-test": "webpack --config ./test/copy.test.config.js --mode production"
   },
   "engines": {
     "node": ">=10.15.1"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
     "file-loader": "^4.2.0",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7",
     "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^4.0.0-beta.5"
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
   }
 }
