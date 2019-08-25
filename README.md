@@ -81,7 +81,7 @@ module.exports = {
 Please support [https://unpkg.com/](https://unpkg.com/) (a direct mirror of everything on NPM) by using them as your CDN.
 Any module you would like to use found on NPM can be found on unpkg including all back versions.
 
-By using unpkg.com you not only make endpoints be consistent in the configuration of this plugin, but you are helping raise awareness across developers to existence of unpkg.com. Please consider it!
+By using [https://unpkg.com/](https://unpkg.com/) you not only make endpoints be consistent in the configuration of this plugin, but you are helping raise awareness across developers to existence of [https://unpkg.com/](https://unpkg.com/). Please consider it!
 
 ---
 
