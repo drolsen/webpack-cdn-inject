@@ -58,7 +58,7 @@ All URLs added to the body option gets setup as script tags to the end of the do
 module.exports = {
   "plugins": [
     new WebpackCDNInject({
-      body: ['url.js', 'url.js']
+      body: ['url.js', 'url.css']
     })
   ]
 };
@@ -71,7 +71,7 @@ All URLs added to the head option gets setup as script tags to the end of the do
 module.exports = {
   "plugins": [
     new WebpackCDNInject({
-      head: ['url.css', 'url.css']
+      head: ['url.css', 'url.js']
     })
   ]
 };
