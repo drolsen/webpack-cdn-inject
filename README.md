@@ -50,6 +50,7 @@ Option | Type | Description
 `head` | String array | Defines urls to be added to document head (tag type is defined by url's file extension).
 `body` | String array | Defines urls to be added to document body (tag type is defined by url's file extension).
 
+---
 
 ## body
 All URLs added to the body option gets setup as script tags to the end of the document's body, but before any pre-existing scripts.
@@ -64,6 +65,8 @@ module.exports = {
 };
 ```
 
+---
+
 ## head
 All URLs added to the head option gets setup as script tags to the end of the document's body, but before any pre-existing scripts.
 
@@ -76,6 +79,8 @@ module.exports = {
   ]
 };
 ```
+
+---
 
 ### Plugin Recommendations
 Please support [https://unpkg.com/](https://unpkg.com/) (a direct mirror of everything on NPM) by using them as your CDN.
