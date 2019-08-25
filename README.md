@@ -14,6 +14,10 @@ Webpack CDN Inject accepts both JS (script tag) and CSS (link tag) configuration
 
 JS configurations are injected into bottom of your document's body, while CSS configurations are injected into the bottom of the head of your document (below any existing tags).
 
+Webpack CDN Inject supports HTMLWebpackPlugin and will inject CDN link / script tags into the document compiled by this plugin automatically.
+
+However, Webpack CDN Inject also comes with a fallback approach for builds not using HTMLWebpackPlugin by means of a programmatic install of CDN link / tags. In these build types, a little more configuration might be necessary so please see entry options.
+
 ---
 ### Install
 ```
@@ -32,8 +36,8 @@ Instantiate a new WebpackCDNInject() class within Webpack configuration's plugin
 module.exports = {
   "plugins": [
     new WebpackCDNInject({
-      [key]: [url.js],
-      [key]: [url.css]
+      head: ['url.css', 'url.css']
+      body: ['url.js', 'url.js']
     })
   ]
 };
@@ -54,36 +58,83 @@ By supporting the use of unpkg, you not only save time and make code endpoints b
 module.exports = {
   "plugins": [
     new WebpackCDNInject({
-      [key]: [url.js],
-      [key]: [url.css]
-    }, {options})
+      ...options
+    })
   ]
 };
 ```
 
 Option | Types | Description | Default
 --- | --- | --- | ---
-`js` | 'before' or 'after' | Defines if injected script blocks should be injected before or after existing found scripts before closing body tag. | 'before'
-`css` | 'before' or 'after' | Defines if injected link tags should be injected before or after existing found link tags in document head. | 'after'
-`entry` | String | If not using HTMLWebpackPlugin, you can define what entry file to add injecting JS too. | first found entry asset.
+`body` | object of strings | Defines url of scripts to be added to document body. | []
+`head` | object of strings | Defines urls of css to be added to document head. | []
+`entry` | String | If not using HTMLWebpackPlugin, you can define what entry file to add injecting JS too. | first entry asset.
 
 
-## js
-When configuring a WebpackCDNInject url that has .js in the path, it will be injected into the document's body (just before closing body tag). However, by default WebpackCDNInject will inject CDN script blocks before any existing found script blocks before closing body tag.
+## body
+All urls added to the body option gets setup as script tags to the end of the document's body, but before any pre-existing scripts.
 
-This option allows you to define if WebpackCDNInject script blocks should be inserted before or after any existing script blocks.
+```js
+module.exports = {
+  "plugins": [
+    new WebpackCDNInject({
+      body: ['url.js', 'url.js']
+    })
+  ]
+};
+```
 
-## css
-When configuring a WebpackCDNInject url that has .css in the path, it will be injected into the document's head (just before closing head tag). However, by default WebpackCDNInject will inject CDN link tags after any existing found tags within the document head.
+## head
+All urls added to the head option gets setup as script tags to the end of the document's body, but before any pre-existing scripts.
 
-This option allows you to define if WebpackCDNInject link tags should be inserted before or after any existing tags in document head.
+```js
+module.exports = {
+  "plugins": [
+    new WebpackCDNInject({
+      head: ['url.css', 'url.css']
+    })
+  ]
+};
+```
 
-## entry
-WebpackCDNInject will check to see if build is using the popular HTMLWebpackPlugin, and if found to be true will inject CDN script blocks and link tags into the configured HTML entry file(s) for HTMLWebpackPlugin.
+## entry.file
+Webpack CDN Inject checks to see if HTMLWebpackPlugin is found to be used in a build.
+If found, WebpackCDNInject will inject both link and script tags to the HTML document produced from HTMLWebpackPlugin.
 
-However, if found not to be using HTMLWebpackPlugin, WebpackCDNInject will add a little supporting script into your entry .js file that, once ran in browser will inject script blocks and link tags to the document programmatically.
+However if HTMLWebpackPlugin is not found, Webpack CDN Inject will inject a small JS snip into your build entry file. This small JS snip will install the CDN link and scripts tags programmatically when loaded in browser.
 
-This option allows you to define what entry file to add supporting script code too. 
+This entry option allows you to specify what entry file Webpack CDN Inject will inject JS snip into for programmatic install of CDN link / script tags. This is useful if you have a build configuration that has multiple entry files, and need finer control.
+
+```js
+module.exports = {
+  "plugins": [
+    new WebpackCDNInject({
+      entry: 'NameOfEntryOutput.js'
+    })
+  ]
+};
+```
+
+## entry.wait
+
+The wait option allows developers to specify if Webpack CDN Inject should wrap all entry.file's logic around a "onload checker" method against all the programmatically installed scripts.
+
+This is useful if you have logic in your entry file that depends on the CDN assets being loaded in full prior.
+
+```js
+module.exports = {
+  "plugins": [
+    new WebpackCDNInject({
+      entry: 'NameOfEntryOutput.js',
+      wait: true
+    })
+  ]
+};
+```
+
+The wait option works by registering each programmatically installed script tag into an array of false values. onLoad eventListeners are added to each installed script tag that updates the registry from false to true once script is loaded. Finally Webpack CDN Inject will recursively keep checking the registry for all entries to be true prior allowing entry file's logic to be ran.
+
+Please note: It is important for developers to realize that in this setup, an Internet connection is not just something that effect the CDN requests, but also if the logic of your entry file will be ran at all. There is no bail option for this setup and if it is something that is limiting to your application or site needs, it is suggested you choose to set entry.wait to false and maintain your own API availability within your JS logic.
 
 ---
 
