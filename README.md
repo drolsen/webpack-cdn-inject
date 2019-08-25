@@ -47,8 +47,8 @@ module.exports = {
 
 Option | Type | Description
 --- | --- | ---
-`body` | String array | Defines url of scripts to be added to document body.
-`head` | String array | Defines urls of css to be added to document head.
+`head` | String array | Defines urls to be added to document head (tag type is defined by url's file extension).
+`body` | String array | Defines urls to be added to document body (tag type is defined by url's file extension).
 
 
 ## body
