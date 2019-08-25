@@ -33,7 +33,9 @@ Instantiate a `new WebpackCDNInject()` class within Webpack configuration's plug
 ```js
 module.exports = {
   "plugins": [
-    new WebpackCDNInject()
+    new WebpackCDNInject({
+      ...config
+    })
   ]
 };
 ```
@@ -42,15 +44,6 @@ module.exports = {
 
 ## Configuration
 
-```js
-module.exports = {
-  "plugins": [
-    new WebpackCDNInject({
-      ...config
-    })
-  ]
-};
-```
 
 Option | Type | Description
 --- | --- | --- | ---
