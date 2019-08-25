@@ -9,7 +9,7 @@
 
 ### How it works
 Webpack CDN Inject allows developers a way to define CDN hosted assets that will be added to their HTML documents.
-CDN hosted assets helps reduce your project's build times and size and in some cases speed up load times.
+CDN hosted assets helps reduce your project's build times, bundle size and in some cases page speed.
 
 Webpack CDN Inject accepts both `JS (<script/> tag)` and `CSS (<link/> tag)` configurations across both `head` and `head` of HTML documents.
 
