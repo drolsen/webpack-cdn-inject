@@ -1,4 +1,5 @@
 const WebpackCDNInject = require('../index.js');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
@@ -16,6 +17,7 @@ module.exports = {
     minimize: false
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin([ // react-routes rewrite files for hosting guide on remote a web server.
       {
         from: path.resolve(__dirname, 'test.html'), // for IIS servers

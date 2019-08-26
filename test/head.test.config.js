@@ -1,4 +1,5 @@
 const WebpackCDNInject = require('../index.js');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -26,6 +27,7 @@ module.exports = {
     minimize: false
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       'title': 'Basic Test',
       'template': './test/test.a.html',

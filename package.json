@@ -1,6 +1,6 @@
 {
   "name": "webpack-cdn-inject",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Plugin to inject CDN script blocks to DOM",
   "repository": "drolsen/webpack-cdn-inject",
   "bugs": {
@@ -20,7 +20,6 @@
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.4",
-    "file-loader": "^4.2.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^4.0.0-beta.5",
     "webpack": "^4.39.2",
