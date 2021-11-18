@@ -27,7 +27,6 @@ module.exports = {
     minimize: false
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       'title': 'Basic Test',
       'template': './test/test.a.html',
