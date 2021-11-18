@@ -23,7 +23,7 @@
     "copy-test": "webpack --config ./test/copy.test.config.js --mode production"
   },
   "engines": {
-    "node": ">=14.17.1"
+    "node": ">=14.17.0"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
